@@ -1,0 +1,71 @@
+:root {
+	--fs: 100;
+}
+
+@mixin fontsize($size) {
+	font-size: calc(var(--fs) *#{$size}/ 100);
+}
+
+@function to-vw($size, $vw-viewport) {
+	// ex: 20px, 1920
+	$vw-context: $vw-viewport * 0.01 * 1px;
+	@return $size / $vw-context * 1vw;
+	@return $size;
+}
+
+@mixin flex($align: start, $justify: start) {
+	display: flex;
+	align-items: $align;
+	justify-content: $justify;
+}
+
+@mixin position($position: relative, $top: auto, $left: auto, $zindex: 0) {
+	position: $position;
+	top: $top;
+	left: $left;
+	z-index: $zindex;
+}
+
+@mixin box($width: auto, $height: $width) {
+	width: $width;
+	height: $height;
+}
+
+@mixin translate($x: 0, $y: 0) {
+	transform: translate($x, $y);
+}
+
+$extra-mobile: 479px;
+$medium-width: 576px;
+$tablet-width: 768px;
+$desktop-width: 1024px;
+
+@mixin desktop {
+	@media only screen and (min-width: #{$desktop-width}) {
+		@content;
+	}
+}
+
+@mixin tablet {
+	@media only screen and (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+		@content;
+	}
+}
+
+@mixin medium {
+	@media only screen and (min-width: #{$medium-width}) and (max-width: #{$tablet-width - 1px}) {
+		@content;
+	}
+}
+
+@mixin small-mobile {
+	@media only screen and (max-width: #{$medium-width - 1px}) {
+		@content;
+	}
+}
+
+@mixin extra-mobile {
+	@media only screen and (max-width: #{$extra-mobile}) {
+		@content;
+	}
+}
